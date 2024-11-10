@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Registration Form with OTP</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+      }
+      h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .form-container {
+        width: 50%;
+        background-color: white;
+        padding: 30px;
+        margin: 50px auto;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+      }
+      .form-control {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ced4da;
+        border-radius: 4px;
+      }
+      .btn-submit {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        border: none;
+      }
+      .btn-submit:hover {
+        background-color: #0056b3;
+      }
+      .error {
+        color: red;
+        font-size: 14px;
+      }
+      .success {
+        color: green;
+        font-size: 14px;
+      }
+      .otp-timer {
+        font-weight: bold;
+        color: #d9534f;
+        margin-bottom: 20px;
+      }
+      .hidden {
+        display: none;
+      }
+      #captchaCode {
+        font-size: 18px;
+        background-color: #e9ecef;
+        padding: 5px;
+        border-radius: 4px;
+        display: inline-block;
+      }
+      #refreshCaptcha {
+        margin-left: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 10px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+      #refreshCaptcha:hover {
+        background-color: #0056b3;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>New Registration Form </h2>
+
+    <div class="form-container">
+      <form id="registrationForm" class="needs-validation" novalidate>
+        <!-- Username -->
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            placeholder="Enter your username"
+            required
+          />
+          <div class="invalid-feedback">Please enter a username.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Set Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter password"
+            required
+          />
+          <div class="invalid-feedback">Please enter a password.</div>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            class="form-control"
+            placeholder="Confirm your password"
+            required
+          />
+          <span id="passwordError" class="error hidden"
+            >Passwords do not match</span
+          >
+          <div class="invalid-feedback">Please confirm your password.</div>
+        </div>
+
+        <!-- OTP Method Choice -->
+        <div class="form-group">
+          <label>Choose OTP Method:</label><br />
+          <input
+            type="radio"
+            id="otpEmail"
+            name="otpMethod"
+            value="email"
+            checked
+          />
+          Email
+          <input type="radio" id="otpMobile" name="otpMethod" value="mobile" />
+          Mobile
+        </div>
+
+        <!-- Email Container -->
+        <div class="form-group" id="emailContainer">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter your email"
+            required
+          />
+          <div class="invalid-feedback">Please enter a valid email.</div>
+        </div>
+
+        <!-- Mobile Container -->
+        <div class="form-group hidden" id="mobileContainer">
+          <label for="mobile">Mobile Number:</label>
+          <input
+            type="tel"
+            id="mobile"
+            name="mobile"
+            class="form-control"
+            pattern="[0-9]{10}"
+            placeholder="Enter your mobile number"
+          />
+          <div class="invalid-feedback">
+            Please enter a valid 10-digit mobile number.
+          </div>
+        </div>
+
+        <!-- Captcha -->
+        <div class="form-group">
+          <label for="captcha">Captcha: <span id="captchaCode"></span></label>
+          <input
+            type="text"
+            id="captchaInput"
+            name="captchaInput"
+            class="form-control"
+            placeholder="Enter captcha"
+            required
+          />
+          <button type="button" id="refreshCaptcha" class="btn">
+            Refresh Captcha
+          </button>
+          <span id="captchaError" class="error hidden">Incorrect Captcha</span>
+          <div class="invalid-feedback">Please enter the captcha.</div>
+        </div>
+
+        <!-- Send OTP Button -->
+        <div class="form-group">
+          <button type="button" id="sendOtpBtn" class="btn btn-primary">
+            Send OTP
+          </button>
+        </div>
+
+        <!-- OTP Section -->
+        <div id="otpSection" class="hidden">
+          <div class="form-group">
+            <label for="otp">Enter OTP:</label>
+            <input
+              type="text"
+              id="otpInput"
+              name="otpInput"
+              class="form-control"
+              placeholder="Enter the OTP"
+              required
+            />
+            <div class="invalid-feedback">Please enter the OTP.</div>
+          </div>
+          <button type="button" id="verifyOtpBtn" class="btn btn-primary">
+            Verify OTP
+          </button>
+          <span class="otp-timer" id="otpTimer">02:00</span><br />
+          <span id="otpError" class="error hidden">Incorrect OTP</span>
+        </div>
+
+        <!-- Submit Button -->
+        <a href="home.html" class="btn btn-submit">Register</a>
+
+
+        <span id="successMessage" class="success hidden"
+          >Verified Successfully!</span
+        >
+      </form>
+    </div>
+
+    <div class="footer">
+      <p>&copy; 2024 Registration Form. All rights reserved.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Toggle between email and mobile input fields
+      document
+        .getElementById("otpEmail")
+        .addEventListener("change", function () {
+          document.getElementById("emailContainer").classList.remove("hidden");
+          document.getElementById("mobileContainer").classList.add("hidden");
+        });
+
+      document
+        .getElementById("otpMobile")
+        .addEventListener("change", function () {
+          document.getElementById("mobileContainer").classList.remove("hidden");
+          document.getElementById("emailContainer").classList.add("hidden");
+        });
+
+      // Password matching validation
+      const password = document.getElementById("password");
+      const confirmPassword = document.getElementById("confirmPassword");
+      const passwordError = document.getElementById("passwordError");
+
+      confirmPassword.addEventListener("input", function () {
+        if (password.value !== confirmPassword.value) {
+          passwordError.classList.remove("hidden");
+        } else {
+          passwordError.classList.add("hidden");
+        }
+      });
+
+      // Generate captcha
+      const captchaCodeEl = document.getElementById("captchaCode");
+      const refreshCaptchaBtn = document.getElementById("refreshCaptcha");
+      const captchaInput = document.getElementById("captchaInput");
+      const captchaError = document.getElementById("captchaError");
+
+      function generateCaptcha() {
+        const chars =
+          "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let captcha = "";
+        for (let i = 0; i < 6; i++) {
+          captcha += chars[Math.floor(Math.random() * chars.length)];
+        }
+        captchaCodeEl.textContent = captcha;
+      }
+
+      // Refresh captcha
+      refreshCaptchaBtn.addEventListener("click", generateCaptcha);
+
+      // Initialize captcha
+      generateCaptcha();
+
+      // OTP related variables
+      let generatedOtp = "";
+      let otpTimeout;
+      const sendOtpBtn = document.getElementById("sendOtpBtn");
+      const otpSection = document.getElementById("otpSection");
+      const otpInput = document.getElementById("otpInput");
+      const otpError = document.getElementById("otpError");
+      const otpTimer = document.getElementById("otpTimer");
+      let timeLeft = 120; // 2 minutes
+      let otpVerified = false;
+      // Generate OTP
+      function generateOtp() {
+        return Math.floor(100000 + Math.random() * 900000).toString();
+      }
+
+      // Send OTP function
+      sendOtpBtn.addEventListener("click", function () {
+        event.preventDefault(); // Prevent the default form submission
+        const email = document.getElementById("email").value;
+
+        // Send email to the server to generate and send OTP
+        fetch("http://localhost:3000/api/send-otp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email }), // Sending email as JSON
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            alert("OTP sent to your email!");
+            otpSection.classList.remove("hidden");
+          })
+          .catch((error) => console.error("Error sending OTP:", error));
+      });
+      const verifyOtpBtn = document.getElementById("verifyOtpBtn");
+
+      // Verify OTP function
+      verifyOtpBtn.addEventListener("click", function (event) {
+        event.preventDefault(); // Prevent form submission
+        const enteredOtp = otpInput.value;
+        const email = document.getElementById("email").value;
+
+        // Call API to verify OTP
+        fetch("http://localhost:3000/api/verify-otp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email, otp: enteredOtp }), // Send OTP and email as JSON
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("OTP verification failed"); // Handle non-200 responses
+            }
+            return response.text(); // Parse response
+          })
+          .then((data) => {
+            if (data === "OTP verified successfully!") {
+              alert("OTP verified successfully!");
+              successMessage.classList.remove("hidden");
+              otpError.classList.add("hidden");
+              otpVerified = true; // Assuming you are using this flag elsewhere in the code
+            } else {
+              otpError.textContent = "Incorrect OTP";
+              otpError.classList.remove("hidden");
+              successMessage.classList.add("hidden");
+            }
+          })
+          .catch((error) => {
+            console.error("Error verifying OTP:", error);
+            otpError.textContent = "An error occurred";
+            otpError.classList.remove("hidden");
+          });
+      });
+
+      // Start OTP timer
+      clearTimeout(otpTimeout);
+      timeLeft = 120;
+      otpTimer.textContent = "02:00";
+      startOtpTimer();
+
+      // OTP Timer Countdown
+      function startOtpTimer() {
+        otpTimeout = setInterval(function () {
+          timeLeft--;
+          const minutes = Math.floor(timeLeft / 60)
+            .toString()
+            .padStart(2, "0");
+          const seconds = (timeLeft % 60).toString().padStart(2, "0");
+          otpTimer.textContent = `${minutes}:${seconds}`;
+
+          if (timeLeft <= 0) {
+            clearInterval(otpTimeout);
+            otpError.textContent = "OTP has expired";
+            otpError.classList.remove("hidden");
+          }
+        }, 1000);
+      }
+
+      // Form validation and submission
+      const form = document.getElementById("registrationForm");
+      const successMessage = document.getElementById("successMessage");
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        if (!form.checkValidity()) {
+          form.classList.add("was-validated");
+        } else {
+          // Captcha validation
+          if (captchaInput.value !== captchaCodeEl.textContent) {
+            captchaError.classList.remove("hidden");
+          } else {
+            captchaError.classList.add("hidden");
+
+            // OTP validation
+            if (otpVerified == true && timeLeft > 0) {
+              successMessage.classList.remove("hidden");
+              otpError.classList.add("hidden");
+            } else {
+              otpError.textContent = "Incorrect OTP";
+              otpError.classList.remove("hidden");
+              successMessage.classList.add("hidden");
+            }
+          }
+        }
+      });
+      
+    </script>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+          const email = document.getElementById("email").value;
+          // Send email to the server to generate and send OTP
+          fetch("http://localhost:3000/api/send-otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email }),
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              alert(data);
+              document.getElementById("loginForm").style.display = "none"; // Hide login form
+              document.getElementById("otpSection").style.display = "block"; // Show OTP section
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+
+      document
+        .getElementById("verifyOtp")
+        .addEventListener("click", function () {
+          const otp = document.getElementById("otp").value;
+          fetch("http://localhost:3000/api/verify-otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ otp: otp }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("OTP verification failed"); // Handle non-200 responses
+              }
+              return response.text();
+            })
+            .then((data) => {
+              alert(data);
+              // Navigate to home.html after successful verification
+              window.location.href = "home.html"; // Redirect to home.html
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script1"></script>
+  </body>
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Faculty Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            color: #333;
+        }
+        header {
+            background-color: #4A90E2;
+            color: white;
+            padding: 2px 3px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo img {
+            width: 90%;
+            height: 90%;
+            object-fit: cover;
+            
+        }
+        .header-content {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            justify-content: flex-end;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border: 2px solid white;
+        }
+        .profile span {
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .hamburger {
+            font-size: 30px;
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            position: relative;
+            margin-right: 30px;
+            
+        }
+        .hamburger:hover .dropdown {
+            display: block;
+            margin-left: 5px;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background-color: white;
+            color: #333;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            min-width: 150px;
+        }
+        .dropdown a {
+            color: #333;
+            padding: 10px 20px;
+            display: block;
+            text-decoration: none;
+            font-size: 16px;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s;
+        }
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+        .sidebar {
+            background-color: hsl(200, 92%, 53%);
+            color: white;
+            width: 250px;
+            padding-top: 70px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar a {
+            padding: 25px 25px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-weight: 500;
+            font-size: 20px;
+            transition: background-color 0.3s, padding-left 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #ee0ec9;
+            padding-left: 40px;
+        }
+        .marquee-container {
+            background-color: white;
+            padding: 40px;
+            margin-top: 40px;
+            text-align: center;
+            border-bottom: 1px solid #4A90E2;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            box-sizing: border-box;
+            height: 60px;
+            line-height: 60px; /* Center text vertically */
+            overflow: hidden;
+        }
+        .marquee-container b {
+            display: inline-block;
+            font-size: 20px;
+            text-transform: uppercase;
+        }
+        .college-info {
+            background: url('ground-image.jpg') no-repeat center center;
+            margin-top: 50px;
+            background-size: cover;
+            padding: 20px;
+            color: rgb(22, 148, 104);
+            text-align: center;
+            margin-top: -10px; /* Reduce the gap between marquee and image */
+        }
+        .college-info img {
+            height: 360px; /* Adjust the height as needed */
+            width: 120%;
+            object-fit: cover;
+        }
+        .college-info h2 {
+            font-size: 36px;
+            margin-top: -10px;
+        }
+        .college-info p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .container {
+            margin-left: 250px;
+            padding: 90px 30px 20px 30px;
+            width: calc(100% - 250px);
+            box-sizing: border-box;
+            display: none;
+        }
+        .container.active {
+            display: block;
+        }
+        .form-container {
+            background: white;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 500;
+        }
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="password"],
+        .form-container input[type="date"] {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 3px #3fc2c71a;
+            transition: border-color 0.3s;
+        }
+        .form-container input[type="text"]:focus,
+        .form-container input[type="email"]:focus,
+        .form-container input[type="password"]:focus,
+        .form-container input[type="date"]:focus {
+            border-color: #4A90E2;
+            outline: none;
+        }
+        .form-container input[type="submit"] {
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #357ABD;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .highlight {
+            display: inline; /* Ensure no extra space is added */
+            font-weight: bold; /* Optional: Make it bold */
+            text-decoration: underline; /* Optional: Underline text */
+            animation: colorChange 2s linear infinite; /* Apply animation */
+            margin-left: 15px; /* Add space between "Apply" and "New" */
+            font-family: 'Great Vibes', cursive; /* Elegant cursive font */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Add shadow for a stylish effect */
+          }
+      
+          @keyframes colorChange {
+            0% { color: #ff4500; } /* OrangeRed */
+            25% { color: #ff6347; } /* Tomato */
+            50% { color: #4682b4; } /* SteelBlue */
+            75% { color: #32cd32; } /* LimeGreen */
+            100% { color: #ff4500; } /* OrangeRed (back to the start) */
+          }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="image/logo.jpg" alt="Logo">
+    </div>
+    <div class="header-content">
+        <div class="profile">
+            <img src="https://via.placeholder.com/45" alt="Profile Picture">
+            <span>Muskan</span>
+        </div>
+        <div class="hamburger">
+            ☰
+            <div class="dropdown">
+                <a href="login.html">Login</a>
+                <a href="signup.html">Signup</a>
+                <a href="#">Logout</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="sidebar">
+    <a href="index.html" onclick="showSection('home')">Home</a>
+    <a href="dashboard.html" onclick="showSection('dashboard')">Dashboard</a>
+    <a href="Apply.html" onclick="showSection('home')">Apply <span class="highlight"><i>New</i></span></a>
+    <a href="#" onclick="showSection('about')">About</a>
+    <a href="#" onclick="showSection('record')">Record</a>
+    <a href="faculty.html" onclick="showSection('record')">faculty</a>
+    <a href="contact.html" onclick="showSection('record')">Contact</a>
+</div>
+
+<div class="marquee-container">
+    <marquee><b>Welcome to <u>KASTURBA DSEU</u> Guest Faculty opening. Apply for the job and experience great knowledge and pleasure working with us.</b></marquee>
+</div>
+
+<div class="college-info">
+    <img src="image/img1.jpg" alt="College Image">
+   <center><h2>Kasturba DSEU Pitampura Campus</h2></center> 
+    <center><p>Kasturba DSEU Pitampura Campus is known for its exceptional education standards, providing a rich learning environment with state-of-the-art facilities. Join us as we foster future leaders in diverse fields of study.</p></center>
+</div>
+
+
+<div class="container" id="dashboard">
+    <div class="form-container">
+        <h2>Dashboard</h2>
+        <p>Welcome to the Faculty Dashboard. Here you can manage your profile, view statistics, and more.</p>
+    </div>
+</div>
+
+<div class="container" id="registration">
+    <div class="form-container">
+        <h2>Faculty Registration</h2>
+        <form action="#" method="post">
+            <input type="text" name="first_name" placeholder="First Name">
+            <input type="text" name="last_name" placeholder="Last Name">
+            <input type="email" name="email" placeholder="Email Address">
+            <input type="password" name="password" placeholder="Password">
+            <input type="date" name="dob" placeholder="Date of Birth">
+            <input type="submit" value="Register">
+        </form>
+    </div>
+</div>
+
+<div class="container" id="record">
+    <div class="form-container">
+        <h2>Record</h2>
+        <p>Here you can view and manage your records.</p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Kasturba DSEU. All rights reserved.</p>
+</footer>
+
+<script>
+    function showSection(id) {
+        const sections = document.querySelectorAll('.container');
+        sections.forEach(section => {
+            section.classList.remove('active');
+        });
+        document.getElementById(id).classList.add('active');
+    }
+</script>
+
+</body>
+</html>

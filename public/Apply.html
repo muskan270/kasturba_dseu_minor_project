@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Portal - Guest Faculty</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-subsection {
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="password"], input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="submit"], button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #45a049;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+        }
+        .checkbox input {
+            margin-right: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>GUEST FACULTY OPENING</h1>
+    <h2>Application Portal</h2>
+
+    <!-- Terms and Agreement Section -->
+    <div class="form-section">
+        <h3>Approval Check</h3>
+        <p>Please agree to the terms and conditions before proceeding with your application.</p>
+        <div class="checkbox">
+            <input type="checkbox" id="approvalCheck" required>
+            <label for="approvalCheck">I agree to the terms and conditions.</label>
+        </div>
+        <div id="approvalError" class="error"></div>
+    </div>
+
+    <!-- New Registration Button -->
+    <div class="form-section">
+        <h3>New Candidate Registration</h3>
+        <p>If you are a new applicant, please register using the button below.</p>
+        <button onclick="window.location.href='registration.html'">New Registration</button>
+    </div>
+
+    <!-- Existing User Login Form -->
+    <div class="form-section">
+        <h3>Existing Candidate Login</h3>
+        <form id="loginForm">
+            <div class="form-subsection">
+                <input type="text" id="userID" name="userID" placeholder="User ID" required>
+            </div>
+            <div class="form-subsection">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div id="loginError" class="error"></div>
+            <input type="submit" value="Login">
+        </form>
+    </div>
+</div>
+
+<script>
+    // Form validation before submission
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        const approvalCheck = document.getElementById('approvalCheck').checked;
+        const approvalError = document.getElementById('approvalError');
+        approvalError.innerHTML = ''; // Clear any previous errors
+
+        if (!approvalCheck) {
+            approvalError.innerHTML = 'You must agree to the terms and conditions before proceeding.';
+            event.preventDefault();
+        }
+    });
+</script>
+
+</body>
+</html>

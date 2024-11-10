@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #ff0000, #ffff00, #0000ff);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        animation: gradientAnimation 15s ease infinite;
+      }
+
+      @keyframes gradientAnimation {
+        0% {
+          background: linear-gradient(135deg, #ff0000, #ffff00, #0000ff);
+        }
+        50% {
+          background: linear-gradient(135deg, #ffff00, #0000ff, #ff0000);
+        }
+        100% {
+          background: linear-gradient(135deg, #ff0000, #ffff00, #0000ff);
+        }
+      }
+
+      .login-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 40px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        animation: formAnimation 0.6s ease-out;
+        position: relative;
+      }
+
+      @keyframes formAnimation {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-group label {
+        font-weight: bold;
+      }
+
+      .form-control {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: #ff0000;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        outline: none;
+      }
+
+      .btn-primary {
+        background-color: #ff0000;
+        border-color: #ff0000;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+        padding: 10px;
+      }
+
+      .btn-primary:hover {
+        background-color: #cc0000;
+        border-color: #cc0000;
+      }
+
+      .login-container h2 {
+        margin-bottom: 25px;
+        color: #ff0000;
+      }
+
+      .login-container .form-group {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2 class="text-center">Login</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+      <!-- OTP Section -->
+      <div id="otpSection" style="display: none">
+        <div class="form-group">
+          <label for="otp">Enter OTP</label>
+          <input
+            type="text"
+            class="form-control"
+            id="otp"
+            placeholder="Enter the OTP"
+            required
+          />
+        </div>
+        <button id="verifyOtp" class="btn btn-primary btn-block">
+          Verify OTP
+        </button>
+      </div>
+    </div>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent the default form submission
+          const email = document.getElementById("email").value;
+          // Send email to the server to generate and send OTP
+          fetch("http://localhost:3000/api/send-otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: email }),
+          })
+            .then((response) => response.text())
+            .then((data) => {
+              alert(data);
+              document.getElementById("loginForm").style.display = "none"; // Hide login form
+              document.getElementById("otpSection").style.display = "block"; // Show OTP section
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+
+      document
+        .getElementById("verifyOtp")
+        .addEventListener("click", function () {
+          const otp = document.getElementById("otp").value;
+          fetch("http://localhost:3000/api/verify-otp", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ otp: otp }),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("OTP verification failed"); // Handle non-200 responses
+              }
+              return response.text();
+            })
+            .then((data) => {
+              alert(data);
+              // Navigate to home.html after successful verification
+              window.location.href = "home.html"; // Redirect to home.html
+            })
+            .catch((error) => console.error("Error:", error));
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

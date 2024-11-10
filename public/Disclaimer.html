@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 8px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="text-center">Disclaimer</h2>
+        <p class="text-center">This dashboard is only for faculty members. Please sign in to access the internal dashboard.</p>
+        
+        <!-- Sign In Form -->
+        <form id="signinForm">
+            <div class="form-group">
+                <label for="signinEmail">Email</label>
+                <input type="email" class="form-control" id="signinEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="signinPassword">Password</label>
+                <input type="password" class="form-control" id="signinPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signinForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Simulate sign-in logic
+            // In a real application, you'd perform sign-in validation here
+            alert('Sign-In successful');
+            window.location.href = 'dashboard.html'; // Redirect to the internal dashboard
+        });
+    </script>
+</body>
+</html>

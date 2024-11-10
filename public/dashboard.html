@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Faculty Dashboard</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafb;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: linear-gradient(90deg, rgba(33,37,41,1) 0%, rgba(41,50,60,1) 100%);
+            border-bottom: 2px solid #007bff;
+        }
+
+        .navbar-brand {
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: #fff !important;
+        }
+
+        .nav-link {
+            color: #ddd !important;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #fff !important;
+            transition: color 0.3s ease;
+        }
+
+        /* Profile Image in Navbar */
+        .profile-img {
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            margin-right: 10px;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown-toggle {
+            color: #ddd !important;
+        }
+
+        .dropdown-menu {
+            background-color: #343a40;
+            border: none;
+        }
+
+        .dropdown-item {
+            color: #fff !important;
+            padding: 10px;
+        }
+
+        .dropdown-item:hover {
+            background-color: #007bff;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Dashboard Container */
+        .container {
+            margin-top: 30px;
+        }
+
+        /* Flexbox for Equal Sized Cards */
+        .row-equal {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .col-lg-4, .col-lg-6 {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 30px;
+        }
+
+        /* Card Styles */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            flex-grow: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Form and Button Styles */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+        }
+
+        /* Report Generation Buttons */
+        .report-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .report-buttons .btn {
+            width: 48%;
+            padding: 15px;
+        }
+
+        .btn-generate-report {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-generate-report:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">Guest Faculty Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    
+           
+                </li>
+                
+                
+                
+            </ul>
+
+            <!-- Right-aligned Profile and Dropdown Menu -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        
+                        <span class="navbar-toggler-icon"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <!-- Home link -->
+                        <a class="dropdown-item" href="home.html">Home</a>
+            
+                        <!-- About link -->
+                        <a class="dropdown-item" href="about.html">About</a>
+            
+                        <!-- Record link -->
+                        <a class="dropdown-item" href="record.html">Record</a>
+            
+                        <!-- Logout button -->
+                        <div class="dropdown-divider"></div>
+                        <button class="btn btn-danger btn-block" onclick="logout()">Logout</button>
+                    </div>
+                </li>
+            </ul>
+            
+            
+            <script>
+                // Logout function
+                function logout() {
+                    alert("Logging out...");
+                    // Add your logout logic here (e.g., clearing session data, redirecting to the login page)
+                }
+            </script>
+            
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <img src="https://via.placeholder.com/45" alt="Profile Picture" class="profile-img">
+                        Muskan <!-- Replace with dynamic username -->
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <div class="row row-equal">
+            <!-- Attendance Record -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        Attendance Record
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="facultyName">Faculty Name</label>
+                                <input type="text" class="form-control" id="facultyName" placeholder="Enter Faculty Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="classDate">Class Date</label>
+                                <input type="date" class="form-control" id="classDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Attendance Status</label>
+                                <select class="form-control" id="status">
+                                    <option>Present</option>
+                                    <option>Absent</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theoretical Record -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        Theoretical Record
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="theoryTopic">Theory Topic</label>
+                                <input type="text" class="form-control" id="theoryTopic" placeholder="Enter Theory Topic">
+                            </div>
+                            <div class="form-group">
+                                <label for="theoryDate">Date</label>
+                                <input type="date" class="form-control" id="theoryDate">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Practical Record -->
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        Practical Record
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="practicalTopic">Practical Topic</label>
+                                <input type="text" class="form-control" id="practicalTopic" placeholder="Enter Practical Topic">
+                            </div>
+                            <div class="form-group">
+                                <label for="practicalDate">Date</label>
+                                <input type="date" class="form-control" id="practicalDate">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-equal">
+            <!-- Bar Chart -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Classes Conducted
+                    </div>
+                    <div class="card-body">
+                        <canvas id="barChart" class="chart-container"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie Chart -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Student Attendance
+                    </div>
+                    <div class="card-body">
+                        <canvas id="pieChart" class="chart-container"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Generation -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        Generate Report
+                    </div>
+                    <div class="card-body">
+                        <div class="report-buttons">
+                            <button type="button" class="btn btn-generate-report">Generate Monthly Report</button>
+                            <button type="button" class="btn btn-generate-report">Generate Yearly Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Bar Chart
+        var ctxBar = document.getElementById('barChart').getContext('2d');
+        var barChart = new Chart(ctxBar, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                datasets: [{
+                    label: '# of Classes Conducted',
+                    data: [12, 19, 3, 5, 2, 3, 7],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        var ctxPie = document.getElementById('pieChart').getContext('2d');
+        var pieChart = new Chart(ctxPie, {
+            type: 'pie',
+            data: {
+                labels: ['Present', 'Absent'],
+                datasets: [{
+                    label: '# of Students',
+                    data: [60, 40],
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+
+        // Logout function
+        function logout() {
+            alert('Logout successful');
+            // Implement actual logout logic here
+        }
+    </script>
+    
+</body>
+</html>

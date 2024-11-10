@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="faculty-heading">Faculty</h1>
+        
+        <!-- Faculty Card 1 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="./image/image1.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Assistant Professor - Computer Science and Application at Kasturba DSEU Pitampura Campus </h2>
+               
+                <ul>
+                   <li> Ph.D. (pursuing) – AIACTR (now NSUT East Campus)</li>
+                   <li> M.Tech. – IIIT Allahabad</li> 
+                   <li> B.Tech. – U.P.T.U Lucknow</li> 
+                </ul>
+                <button id="view-details" onclick="hello()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 2 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="./image/image2.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Assistant Professor - Mechanical Engineering at Kasturba DSEU Pitampura Campus</h2>
+               
+                <ul>
+                    <li>M.Tech. – IIT Roorkee</li>
+                    <li>B.E. – Babu Banarsi Das Institute of Engineering Technology and Research Centre, C.C.S University, Meerut</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 3 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image3.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Lecturer - Computer Science and Application at Kasturba DSEU Pitampura Campus</h2>
+               
+                <ul>
+                    <li>Ph.D. – IIT Delhi</li>
+                    <li> M.Tech. – Computer Engineering, Shobhit University</li>
+                    <li>B.Tech. – Information Technology, UPTU</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 4 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image4.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Lecturer - Artificial Intelligence and Data mining at Kasturba DSEU Pitampura Campus </h2>
+                
+                <ul>
+                    <li>Ph.D. – Data Mining using Artificial Intelligence, University School of Information, Communication and Technology, Guru Gobind Singh Indraprastha University, Delhi</li>
+                    <li>M.Tech. – Computer Science, Zakir Husain College of Engineering and Technology, Aligarh Muslim University, Aligarh</li>
+                    <li>B.Tech. – Computer Science, Krishna Institute of Engineering and Technology, Ghaziabad</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 5 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image5.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Associate Professor - Information Technology</h2>
+                <p>Kasturba DSEU Pitampura Campus</p>
+                <ul>
+                    <li>Ph.D. – Delhi University</li>
+                    <li>M.Tech – Jamia Millia Islamia</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 6 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image6.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Lecturer - Mechanical Engineering</h2>
+                <p>Kasturba DSEU Pitampura Campus</p>
+                <ul>
+                    <li>M.Tech – BITS Pilani</li>
+                    <li>B.E. – NIT Jalandhar</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 7 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image7.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Associate Professor - English at Kasturba DSEU Pitampura Campus</h2>
+                
+                <ul>
+                    <li>Ph.D. – English Literature, University of Jodhpur</li>
+                    <li> M.A. – English Literature, University of Jodhpur</li> 
+                    <li>B.A. – University of Jodhpur</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 8 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image8.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Senior Lecturer - Software Engineering</h2>
+                <p>Kasturba DSEU Pitampura Campus</p>
+                <ul>
+                    <li>M.Tech – IIIT Delhi</li>
+                    <li>B.E. – NSIT Delhi</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 9 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image9.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Assistant Professor - Data Science</h2>
+                <p>Kasturba DSEU Pitampura Campus</p>
+                <ul>
+                    <li>M.Tech – IIT Madras</li>
+                    <li>B.E. – Delhi Technological University</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+
+        <!-- Faculty Card 10 -->
+        <div class="faculty-card">
+            <div class="faculty-photo-container">
+                <img src="image/image10.jpg" alt="Faculty Photo" class="faculty-photo">
+            </div>
+            <div class="faculty-info">
+                <h2>Assistant Professor - Computer Science and Application at Kasturba DSEU Pitampura Campus</h2>
+                
+                <ul>
+                    <li>Ph.D. (pursuing) – SRM University</li>
+                    <li>M.Tech. – NIELIT</li>
+                     <li>B.E. – Computer Engineering, COET, Jalgaon</li>
+                </ul>
+                <button id="view-details" onclick="showDetails()">View Details</button>
+            </div>
+        </div>
+    
+        <div id="details-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDetails()">&times;</span>
+                <h2>About the Faculty</h2>
+                <p>Here you can write detailed information about the faculty member, including their research interests, publications, and professional experience.</p>
+            </div>
+            </div>
+    <script src="script.js"></script>
+</body>
+</html>

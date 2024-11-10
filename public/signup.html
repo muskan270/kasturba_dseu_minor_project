@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #6D28D9, #F43F5E);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            animation: backgroundAnimation 10s ease infinite;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(135deg, #6D28D9, #F43F5E); }
+            50% { background: linear-gradient(135deg, #F43F5E, #6D28D9); }
+            100% { background: linear-gradient(135deg, #6D28D9, #F43F5E); }
+        }
+
+        .form-container {
+            max-width: 600px;
+            width: 100%;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: formAnimation 1s ease-out;
+        }
+
+        @keyframes formAnimation {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            background-color: #6D28D9;
+            border-color: #6D28D9;
+        }
+
+        .btn-primary:hover {
+            background-color: #4C1D95;
+            border-color: #4C1D95;
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h2 class="text-center">Sign Up</h2>
+        <form>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+                <label for="middleName">Middle Name</label>
+                <input type="text" class="form-control" id="middleName" placeholder="Enter your middle name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
